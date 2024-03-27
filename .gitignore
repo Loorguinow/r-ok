@@ -27,6 +27,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+src/main/java/fr/did/Bidon.java
 
 ### VS Code ###
 .vscode/
