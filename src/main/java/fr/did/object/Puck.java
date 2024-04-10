@@ -111,10 +111,12 @@ public class Puck {
      * et en lui donnant son aspect visuel.
      */
     public void spawnPuck(Vector3f translation) {
+        this.geometry.removeControl(this.rigidBodyControl);
         this.geometry.rotate(0.0f, 0.0f, 90.0f * FastMath.DEG_TO_RAD);
         this.geometry.rotate(0.0f, 90.0f * FastMath.DEG_TO_RAD, 0.0f);
         this.geometry.setLocalTranslation(translation);
         this.setItems();
+        this.geometry.addControl(this.rigidBodyControl);
         this.node.attachChild(this.geometry);
     }
 
@@ -123,9 +125,11 @@ public class Puck {
      * et en lui donnant son aspect visuel.
      */
     public void spawnPuck() {
+        this.geometry.removeControl(this.rigidBodyControl);
         this.geometry.rotate(0.0f, 0.0f, 90.0f * FastMath.DEG_TO_RAD);
         this.geometry.rotate(0.0f, 90.0f * FastMath.DEG_TO_RAD, 0.0f);
         this.setItems();
+        this.geometry.addControl(this.rigidBodyControl);
         this.node.attachChild(this.geometry);
     }
 }
