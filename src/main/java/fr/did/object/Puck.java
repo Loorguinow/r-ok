@@ -55,7 +55,7 @@ public class Puck {
      */
     private void constructPhysicalPuck(String form, boolean spawnOrNot) throws FormException {
         Puck.formConstruct(form, this);
-        this.collisionShape = CollisionShapeFactory.createBoxShape(this.getGeometry());
+        this.collisionShape = CollisionShapeFactory.createDynamicMeshShape(this.getGeometry());
         this.rigidBodyControl = new RigidBodyControl(this.getCollisionShape(), this.getMass());
         this.geometry.addControl(this.rigidBodyControl);
         if (spawnOrNot) this.spawnPuck();
