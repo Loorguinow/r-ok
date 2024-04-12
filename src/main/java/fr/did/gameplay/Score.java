@@ -53,4 +53,12 @@ public class Score {
     public void showScore() {
         log.info("Score de la partie : %d - %d".formatted(this.left, this.right));
     }
+
+    /**
+     * Redémarre le score à 0
+     */
+    public void restart() {
+        this.left = 0;
+        this.right = 0;
+    }
 }
