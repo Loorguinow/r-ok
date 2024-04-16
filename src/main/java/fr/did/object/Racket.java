@@ -2,6 +2,7 @@ package fr.did.object;
 
 
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Cylinder;
@@ -15,25 +16,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Racket extends MobileObject{
 
-    public static Racket of(String form, Node node, AssetManager assetManager, boolean spawnOrNot) throws FormException {
-        Racket racket = new Racket(node, assetManager);
+    public static Racket of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot) throws FormException {
+        Racket racket = new Racket(node, assetManager, bulletAppState);
         racket.constructPhysicalObject(form, spawnOrNot);
         return racket;
     }
 
-    public static Racket of(String form, Node node, AssetManager assetManager, boolean spawnOrNot, int size) throws FormException {
-        Racket racket = new Racket(node, assetManager, size);
+    public static Racket of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot, int size) throws FormException {
+        Racket racket = new Racket(node, assetManager, bulletAppState, size);
         racket.constructPhysicalObject(form, spawnOrNot);
         return racket;
     }
 
-    private Racket(Node node, AssetManager assetManager) {
-        super(node, assetManager);
+    private Racket(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
+        super(node, assetManager, bulletAppState);
         this.height = 0.8f;
     }
 
-    private Racket(Node node, AssetManager assetManager, int globalSize) {
-        this(node, assetManager);
+    private Racket(Node node, AssetManager assetManager, BulletAppState bulletAppState, int globalSize) {
+        this(node, assetManager, bulletAppState);
         this.globalSize = globalSize;
     }
 

@@ -51,6 +51,7 @@ public class AirHockeyTable{
         // Créer le sol
         Box groundMesh = new Box(this.largeur , 0.1f, this.longueur);
         Geometry groundGeo = new Geometry("Ground", groundMesh);
+        groundGeo.setLocalTranslation(0.0f, -0.1f, 0.0f);
         Material groundMat = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
         groundMat.setTexture("DiffuseMap",this.assetManager.loadTexture("assets/Textures/Table/texture_table.png"));
 

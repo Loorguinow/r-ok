@@ -1,6 +1,7 @@
 package fr.did.object;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
@@ -25,8 +26,9 @@ public abstract class MobileObject {
     protected int id;
     protected Geometry geometry;
     protected Material material;
-    protected final AssetManager assetManager;
     protected Node node;
+    protected final AssetManager assetManager;
+    protected final BulletAppState bulletAppState;
     @Setter(AccessLevel.NONE)
     protected float height;
     protected float globalSize = 100; //percentage
@@ -35,12 +37,13 @@ public abstract class MobileObject {
     protected CollisionShape collisionShape;
     protected RigidBodyControl rigidBodyControl;
 
-    protected MobileObject(Node node, AssetManager assetManager) {
+    protected MobileObject(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
         this.id = MobileObject.idCounter;
         MobileObject.idCounter++;
         this.material = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
         this.node = node;
         this.assetManager = assetManager;
+        this.bulletAppState = bulletAppState;
     }
 
     /**
@@ -94,6 +97,13 @@ public abstract class MobileObject {
         this.setTextures();
     }
 
+    /**
+     * Relie l'objet avec les physics, au gérant d'états des physics
+     */
+    protected void linkPhysics() {
+        this.bulletAppState.getPhysicsSpace().add(this.rigidBodyControl);
+    }
+
     protected abstract void setTextures();
 
     /**
@@ -108,6 +118,7 @@ public abstract class MobileObject {
         this.geometry.setLocalTranslation(translation);
         this.setItems();
         this.geometry.addControl(this.rigidBodyControl);
+        this.linkPhysics();
         this.node.attachChild(this.geometry);
     }
 
@@ -115,12 +126,13 @@ public abstract class MobileObject {
      * Fait apparaître l'objet mobile, en le plaçant au centre du noeud,
      * et en lui appliquant son aspect visuel.
      */
-    protected void spawnObject() {
+    public void spawnObject() {
         this.geometry.removeControl(this.rigidBodyControl);
         this.geometry.rotate(0.0f, 0.0f, 90.0f * FastMath.DEG_TO_RAD);
         this.geometry.rotate(0.0f, 90.0f * FastMath.DEG_TO_RAD, 0.0f);
         this.setItems();
         this.geometry.addControl(this.rigidBodyControl);
+        this.linkPhysics();
         this.node.attachChild(this.geometry);
     }
 }
