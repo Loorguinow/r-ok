@@ -3,6 +3,9 @@ package fr.did.gameplay;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.FlyByCamera;
+import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -16,22 +19,24 @@ import fr.did.object.AirHockeyTable;
 import fr.did.object.ObjectForm;
 import fr.did.object.Puck;
 import fr.did.object.Racket;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Slf4j@Getter
 public class Session {
 
     private final Node node;
     private final AssetManager assetManager;
+
     private final BulletAppState bulletAppState;
     private final Camera camera;
     private final FlyByCamera cameraControler;
     private final Score score;
     private final AirHockeyTable table;
-    private List<Racket> rackets;
+    public List<Racket> rackets;
     private List<Puck> pucks;
 
     private static final float TABLE_LENGTH = 20.0f;
@@ -52,11 +57,15 @@ public class Session {
         this.camera = camera;
         this.cameraControler = cameraControler;
         this.score = Score.of();
-        this.table = AirHockeyTable.of(Session.TABLE_LENGTH, Session.TABLE_WIDTH, this.node, this.assetManager, this.bulletAppState);
+        this.table = AirHockeyTable.of(Session.TABLE_LENGTH, Session.TABLE_WIDTH, this.node, this.assetManager, this.bulletAppState);;
         try {
             this.rackets = new ArrayList<>(){};
             this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+
+
             this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+
+
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of("cylinder", node, assetManager, bulletAppState, false));
         } catch (FormException e) {
@@ -71,6 +80,7 @@ public class Session {
     private void initCamera() {
         this.cameraControler.setMoveSpeed(10);
         this.camera.setLocation(new Vector3f(-1.8f*Session.TABLE_WIDTH, Session.TABLE_WIDTH*3.0f, 0.0f));
+        this.camera.lookAt(new Vector3f(0f,0f,0f),Vector3f.UNIT_X);
     }
 
     /**
