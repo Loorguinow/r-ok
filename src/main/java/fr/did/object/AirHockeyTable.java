@@ -49,6 +49,7 @@ public class AirHockeyTable{
 
     public void CreateTable() {
         // Créer le sol
+        float restitution = 3.0f;
         Box groundMesh = new Box(this.largeur , 0.1f, this.longueur);
         Geometry groundGeo = new Geometry("Ground", groundMesh);
         groundGeo.setLocalTranslation(0.0f, -0.1f, 0.0f);
@@ -59,6 +60,7 @@ public class AirHockeyTable{
 
         BoxCollisionShape groundShape = new BoxCollisionShape(new Vector3f(this.largeur, 0.1f, this.longueur));
         RigidBodyControl rigidBodyControl = new RigidBodyControl(groundShape, 0f);
+        rigidBodyControl.setFriction(0f);
         groundGeo.addControl(rigidBodyControl);
 
         this.bulletAppState.getPhysicsSpace().add(rigidBodyControl);
@@ -88,6 +90,8 @@ public class AirHockeyTable{
         wallGeo1.setLocalTranslation(-(this.largeur), 0f, 0f);
         BoxCollisionShape wall1Shape = new BoxCollisionShape(new Vector3f(0.1f, 1f, (this.longueur)));
         RigidBodyControl rigidBodyControlWall1 = new RigidBodyControl(wall1Shape, 0f);
+        rigidBodyControlWall1.setRestitution(restitution);
+        rigidBodyControlWall1.setFriction(0f);
         wallGeo1.addControl(rigidBodyControlWall1);
         this.bulletAppState.getPhysicsSpace().add(wallGeo1);
         this.node.attachChild(wallGeo1);
@@ -98,6 +102,8 @@ public class AirHockeyTable{
         wallGeo2.setLocalTranslation((this.largeur), 0f, 0f);
         BoxCollisionShape wall2Shape = new BoxCollisionShape(new Vector3f(0.1f, 1f, (this.longueur)));
         RigidBodyControl rigidBodyControlWall2 = new RigidBodyControl(wall2Shape, 0f);
+        rigidBodyControlWall2.setRestitution(restitution);
+        rigidBodyControlWall2.setFriction(0f);
         wallGeo2.addControl(rigidBodyControlWall2);
         this.bulletAppState.getPhysicsSpace().add(wallGeo2);
         this.node.attachChild(wallGeo2);
@@ -112,6 +118,8 @@ public class AirHockeyTable{
         wallGeo3.setMaterial(tableMat);
         wallGeo3.setLocalTranslation(this.largeur-(this.largeur/3f), 0f ,this.longueur);
         RigidBodyControl rigidBodyControlWall3 = new RigidBodyControl(wallLargeurShape, 0f);
+        rigidBodyControlWall3.setRestitution(restitution);
+        rigidBodyControlWall3.setFriction(0f);
         wallGeo3.addControl(rigidBodyControlWall3);
         this.bulletAppState.getPhysicsSpace().add(wallGeo3);
         this.node.attachChild(wallGeo3);
@@ -121,6 +129,8 @@ public class AirHockeyTable{
         wallGeo35.setMaterial(tableMat);
         wallGeo35.setLocalTranslation(-(this.largeur-(this.largeur/3f)), 0f ,this.longueur);
         RigidBodyControl rigidBodyControlWall35 = new RigidBodyControl(wallLargeurShape, 0f);
+        rigidBodyControlWall35.setRestitution(restitution);
+        rigidBodyControlWall35.setFriction(0f);
         wallGeo35.addControl(rigidBodyControlWall35);
         this.bulletAppState.getPhysicsSpace().add(wallGeo35);
         this.node.attachChild(wallGeo35);
@@ -130,6 +140,8 @@ public class AirHockeyTable{
         wallGeo4.setMaterial(tableMat);
         wallGeo4.setLocalTranslation(this.largeur-(this.largeur/3f), 0f,-(this.longueur));
         RigidBodyControl rigidBodyControlWall4 = new RigidBodyControl(wallLargeurShape, 0f);
+        rigidBodyControlWall4.setRestitution(restitution);
+        rigidBodyControlWall4.setFriction(0f);
         wallGeo4.addControl(rigidBodyControlWall4);
         this.bulletAppState.getPhysicsSpace().add(wallGeo4);
         this.node.attachChild(wallGeo4);
@@ -139,13 +151,15 @@ public class AirHockeyTable{
         wallGeo45.setMaterial(tableMat);
         wallGeo45.setLocalTranslation(-(this.largeur-(this.largeur/3f)), 0f,-(this.longueur));
         RigidBodyControl rigidBodyControlWall45 = new RigidBodyControl(wallLargeurShape, 0f);
+        rigidBodyControlWall45.setRestitution(restitution);
+        rigidBodyControlWall45.setFriction(0f);
         wallGeo45.addControl(rigidBodyControlWall45);
         this.bulletAppState.getPhysicsSpace().add(wallGeo45);
         this.node.attachChild(wallGeo45);
 
 
         // Créer la cage
-        Box cageMesh = new Box(this.largeur/3f, 1f,0.1f); // Taille de la cage
+        Box cageMesh = new Box(this.largeur/3f, 0.6f,0.1f); // Taille de la cage
 
         Geometry cageGeo1 = new Geometry("Cage", cageMesh);
         Material cageMat = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -153,6 +167,17 @@ public class AirHockeyTable{
         cageGeo1.setMaterial(cageMat);
         cageGeo1.setLocalTranslation(0f, 0f, this.longueur); // Positionnée au milieu des murs
         this.node.attachChild(cageGeo1);
+
+        Box poleMesh = new Box(this.largeur/3f, 0.3f,0.1f); // Taille de la cage
+        BoxCollisionShape poleCollionShape = new BoxCollisionShape(new Vector3f(this.largeur/3f, 0.3f,0.1f));
+
+        Geometry poleGeo1 = new Geometry("Cage", poleMesh);
+        poleGeo1.setMaterial(tableMat);
+        poleGeo1.setLocalTranslation(0f, 0.9f, this.longueur); // Positionnée au milieu des murs
+        RigidBodyControl poleRigidBodyControl1 = new RigidBodyControl(poleCollionShape, 0.0f);
+        poleGeo1.addControl(poleRigidBodyControl1);
+        this.bulletAppState.getPhysicsSpace().add(poleGeo1);
+        this.node.attachChild(poleGeo1);
 
         Box cageIn = new Box(0.1f,1f,-2f);
         BoxCollisionShape cageInShape = new BoxCollisionShape(new Vector3f(0.1f,1f,-2f));
@@ -190,6 +215,13 @@ public class AirHockeyTable{
         cageGeo2.setLocalTranslation(0f, 0f, -this.longueur); // Positionnée au milieu des murs
         this.node.attachChild(cageGeo2);
 
+        Geometry poleGeo2 = new Geometry("Cage", poleMesh);
+        poleGeo2.setMaterial(tableMat);
+        poleGeo2.setLocalTranslation(0f, 0.9f, -this.longueur); // Positionnée au milieu des murs
+        RigidBodyControl poleRigidBodyControl2 = new RigidBodyControl(poleCollionShape, 0.0f);
+        poleGeo2.addControl(poleRigidBodyControl2);
+        this.bulletAppState.getPhysicsSpace().add(poleGeo2);
+        this.node.attachChild(poleGeo2);
 
         Geometry cageIn4 = new Geometry("Cage", cageIn);
         cageIn4.setMaterial(tableMat);
@@ -217,7 +249,22 @@ public class AirHockeyTable{
         this.bulletAppState.getPhysicsSpace().add(cageIn6);
         this.node.attachChild(cageIn6);
 
+        /*//Sol de la cage de gauche
+        Box cageGround = new Box(this.largeur, 0.1f,-this.longueur); //this.largeur/3f, 0.1f,-this.longueur/6f
+        Geometry groundGeoCage1 = new Geometry("GroundCage1", cageGround);
+        groundGeoCage1.setLocalTranslation(0.0f, -2.1f, this.longueur+2.1f);
+        Material groundMatCage = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        groundMatCage.setTexture("DiffuseMap",this.assetManager.loadTexture("assets/Textures/Table/texture_mur.jpg"));
 
+        groundGeoCage1.setMaterial(groundMatCage);
+
+        BoxCollisionShape groundShapeCage1 = new BoxCollisionShape(new Vector3f(this.largeur, 0.1f,-this.longueur));
+        RigidBodyControl rigidBodyControlCage1 = new RigidBodyControl(groundShapeCage1, 0f);
+        groundGeoCage1.addControl(rigidBodyControlCage1);
+
+        this.bulletAppState.getPhysicsSpace().add(rigidBodyControlCage1);
+        this.node.attachChild(groundGeoCage1);
+        //Sol de la cage de droite*/
 
     }
 
