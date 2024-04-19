@@ -32,6 +32,7 @@ public class Racket extends MobileObject{
     private Racket(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
         super(node, assetManager, bulletAppState);
         this.height = 0.8f;
+        this.mass = 10f;
     }
 
     private Racket(Node node, AssetManager assetManager, BulletAppState bulletAppState, int globalSize) {
