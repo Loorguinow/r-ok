@@ -23,7 +23,7 @@ public class Puck extends MobileObject{
     public static Puck of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot, int size) throws FormException {
         Puck puck = new Puck(node, assetManager, bulletAppState, size);
         puck.constructPhysicalObject(form, spawnOrNot);
-        puck.rigidBodyControl.setRestitution(1f);
+        puck.rigidBodyControl.setRestitution(0.15f);
         return puck;
     }
 
