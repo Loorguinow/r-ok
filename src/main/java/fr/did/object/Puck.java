@@ -16,18 +16,21 @@ public class Puck extends MobileObject{
     public static Puck of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot) throws FormException {
         Puck puck = new Puck(node, assetManager, bulletAppState);
         puck.constructPhysicalObject(form, spawnOrNot);
+        puck.rigidBodyControl.setRestitution(0.15f);
         return puck;
     }
 
     public static Puck of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot, int size) throws FormException {
         Puck puck = new Puck(node, assetManager, bulletAppState, size);
         puck.constructPhysicalObject(form, spawnOrNot);
+        puck.rigidBodyControl.setRestitution(0.15f);
         return puck;
     }
 
     private Puck(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
         super(node, assetManager, bulletAppState);
         this.height = 0.4f;
+        this.mass = 0.1f;
     }
 
     private Puck(Node node, AssetManager assetManager, BulletAppState bulletAppState,  int globalSize) {

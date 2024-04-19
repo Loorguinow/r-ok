@@ -17,25 +17,34 @@ public class RacketActionListener implements ActionListener {
 
     @Override
     public void onAction(String nom, boolean presse, float temps) {
-        this.direction_x = 0;
-        this.direction_z = 0;
         if (nom.equals("Up")) {
             if (presse) {
                 this.direction_z = 1;
 
             }
+            else{
+                this.direction_z = 0;
+            }
         } else if (nom.equals("Down")) {
             if (presse) {
                 this.direction_z = -1;
-
+            }
+            else{
+                this.direction_z = 0;
             }
         } else if (nom.equals("Left")) {
             if(presse) {
                 this.direction_x = 1;
             }
+            else{
+                this.direction_x = 0;
+            }
         } else if (nom.equals("Right")) {
             if(presse) {
                 this.direction_x = -1;
+            }
+            else{
+                this.direction_x = 0;
             }
 
 
@@ -47,18 +56,30 @@ public class RacketActionListener implements ActionListener {
                 this.direction_z = 1;
 
             }
+            else{
+                this.direction_z = 0;
+            }
         } else if (nom.equals("Down2")) {
             if (presse) {
                 this.direction_z = -1;
 
             }
+            else{
+                this.direction_z = 0;
+            }
         } else if (nom.equals("Left2")) {
             if(presse) {
                 this.direction_x = 1;
             }
+            else{
+                this.direction_x = 0;
+            }
         } else if (nom.equals("Right2")) {
             if(presse) {
                 this.direction_x = -1;
+            }
+            else{
+                this.direction_x = 0;
             }
 
 
