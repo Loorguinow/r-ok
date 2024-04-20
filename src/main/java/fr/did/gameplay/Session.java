@@ -47,6 +47,7 @@ public class Session {
         session.spawnLights();
         session.spawnRackets();
         session.spawnPucks();
+        session.spawnScore();
         return session;
     }
 
@@ -56,7 +57,7 @@ public class Session {
         this.bulletAppState = bulletAppState;
         this.camera = camera;
         this.cameraControler = cameraControler;
-        this.score = Score.of();
+        this.score = Score.of(assetManager,camera.getHeight(),this.node);
         this.table = AirHockeyTable.of(Session.TABLE_LENGTH, Session.TABLE_WIDTH, this.node, this.assetManager, this.bulletAppState);;
         try {
             this.rackets = new ArrayList<>(){};
@@ -64,6 +65,7 @@ public class Session {
 
 
             this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+
 
 
             this.pucks = new ArrayList<>();
@@ -103,6 +105,7 @@ public class Session {
         }
     }
 
+
     /**
      * Fait apparaître les raquettes
      */
@@ -121,5 +124,9 @@ public class Session {
         lamp.setDirection(new Vector3f(-0.1f, -1.0f, -1.0f).normalizeLocal());
         this.node.addLight(ambientLight);
         this.node.addLight(lamp);
+    }
+
+    private void spawnScore(){
+        this.score.DisplayScore();
     }
 }
