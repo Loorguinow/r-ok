@@ -13,6 +13,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Dome;
 import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
@@ -249,23 +250,55 @@ public class AirHockeyTable{
         this.bulletAppState.getPhysicsSpace().add(cageIn6);
         this.node.attachChild(cageIn6);
 
-        /*//Sol de la cage de gauche
-        Box cageGround = new Box(this.largeur, 0.1f,-this.longueur); //this.largeur/3f, 0.1f,-this.longueur/6f
-        Geometry groundGeoCage1 = new Geometry("GroundCage1", cageGround);
-        groundGeoCage1.setLocalTranslation(0.0f, -2.1f, this.longueur+2.1f);
-        Material groundMatCage = new Material(this.assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        groundMatCage.setTexture("DiffuseMap",this.assetManager.loadTexture("assets/Textures/Table/texture_mur.jpg"));
+        //Coin inférieur gauche
+        Box cornerWallMesh = new Box(0.1f, 1f, (this.longueur*( 11.5f/100.0f))); //Théorème de Pythagore
+        Geometry cornerWallGeo1 = new Geometry("CornerWall1", cornerWallMesh);
+        cornerWallGeo1.setMaterial(tableMat);
+        cornerWallGeo1.rotate(0.0f, -45*FastMath.DEG_TO_RAD, 0.0f);
+        cornerWallGeo1.setLocalTranslation(-(this.largeur*(835.0f/1000.0f)), 0f, -this.longueur*(920.0f/1000.0f));
+        BoxCollisionShape cornerWallShape = new BoxCollisionShape(new Vector3f(0.1f, 1f, (this.longueur*( 17.5f/100.0f))));
+        RigidBodyControl rigidBodyControlCornerWall1 = new RigidBodyControl(cornerWallShape, 0f);
+        rigidBodyControlCornerWall1.setRestitution(restitution);
+        rigidBodyControlCornerWall1.setFriction(0f);
+        cornerWallGeo1.addControl(rigidBodyControlCornerWall1);
+        this.bulletAppState.getPhysicsSpace().add(cornerWallGeo1);
+        this.node.attachChild(cornerWallGeo1);
 
-        groundGeoCage1.setMaterial(groundMatCage);
+        //Coin supérieur droit
+        Geometry cornerWallGeo2 = new Geometry("CornerWall3", cornerWallMesh);
+        cornerWallGeo2.setMaterial(tableMat);
+        cornerWallGeo2.rotate(0.0f, -45*FastMath.DEG_TO_RAD, 0.0f);
+        cornerWallGeo2.setLocalTranslation(this.largeur*(835.0f/1000.0f), 0f, this.longueur*(920.0f/1000.0f));
+        RigidBodyControl rigidBodyControlCornerWall2 = new RigidBodyControl(cornerWallShape, 0f);
+        rigidBodyControlCornerWall2.setRestitution(restitution);
+        rigidBodyControlCornerWall2.setFriction(0f);
+        cornerWallGeo2.addControl(rigidBodyControlCornerWall2);
+        this.bulletAppState.getPhysicsSpace().add(cornerWallGeo2);
+        this.node.attachChild(cornerWallGeo2);
 
-        BoxCollisionShape groundShapeCage1 = new BoxCollisionShape(new Vector3f(this.largeur, 0.1f,-this.longueur));
-        RigidBodyControl rigidBodyControlCage1 = new RigidBodyControl(groundShapeCage1, 0f);
-        groundGeoCage1.addControl(rigidBodyControlCage1);
+        //Coin inférieur droit
+        Geometry cornerWallGeo3 = new Geometry("CornerWall3", cornerWallMesh);
+        cornerWallGeo3.setMaterial(tableMat);
+        cornerWallGeo3.rotate(0.0f, 45*FastMath.DEG_TO_RAD, 0.0f);
+        cornerWallGeo3.setLocalTranslation(-this.largeur*(835.0f/1000.0f), 0f, this.longueur*(920.0f/1000.0f));
+        RigidBodyControl rigidBodyControlCornerWall3 = new RigidBodyControl(cornerWallShape, 0f);
+        rigidBodyControlCornerWall3.setRestitution(restitution);
+        rigidBodyControlCornerWall3.setFriction(0f);
+        cornerWallGeo3.addControl(rigidBodyControlCornerWall3);
+        this.bulletAppState.getPhysicsSpace().add(cornerWallGeo3);
+        this.node.attachChild(cornerWallGeo3);
 
-        this.bulletAppState.getPhysicsSpace().add(rigidBodyControlCage1);
-        this.node.attachChild(groundGeoCage1);
-        //Sol de la cage de droite*/
-
+        //Coin supérieur gauche
+        Geometry cornerWallGeo4 = new Geometry("CornerWall4", cornerWallMesh);
+        cornerWallGeo4.setMaterial(tableMat);
+        cornerWallGeo4.rotate(0.0f, 45*FastMath.DEG_TO_RAD, 0.0f);
+        cornerWallGeo4.setLocalTranslation(this.largeur*(835.0f/1000.0f), 0f, -this.longueur*(920.0f/1000.0f));
+        RigidBodyControl rigidBodyControlCornerWall4 = new RigidBodyControl(cornerWallShape, 0f);
+        rigidBodyControlCornerWall4.setRestitution(restitution);
+        rigidBodyControlCornerWall4.setFriction(0f);
+        cornerWallGeo4.addControl(rigidBodyControlCornerWall4);
+        this.bulletAppState.getPhysicsSpace().add(cornerWallGeo4);
+        this.node.attachChild(cornerWallGeo4);
     }
 
 
