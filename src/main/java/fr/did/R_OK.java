@@ -63,48 +63,48 @@ public class R_OK extends SimpleApplication {
 
 
         //Mouvement Racket 1
-        if (this.actionListener.getDirection_z() == 1){
+        if (this.actionListener.getDirection_z_up() == 1){
             if ((this.speed<=20f)&&(velocityRacketOne.x<15f)){
                 game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(velocityRacketOne.add(this.speed,0f,0f));
             }
         }
-        if (this.actionListener.getDirection_z() == -1){
+        if (this.actionListener.getDirection_z_down() == 1){
             if ((this.speed<=20f)&&(velocityRacketOne.x>=-15f)){
                 game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(velocityRacketOne.add(-this.speed,0f,0f));
             }
         }
 
 
-        if (this.actionListener.getDirection_x() == 1){
+        if (this.actionListener.getDirection_x_left() == 1){
             if ((this.speed<=20f)&&(velocityRacketOne.z>=-15f)){
                 game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(velocityRacketOne.add(0f,0f,-this.speed));
             }
         }
-        if (this.actionListener.getDirection_x() == -1){
+        if (this.actionListener.getDirection_x_right() == 1){
             if ((this.speed<=20f)&&(velocityRacketOne.z<=15f)){
                 game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(velocityRacketOne.add(0f,0f,this.speed));
             }
         }
 
         //Mouvement Racket 1
-        if (this.actionListener2.getDirection_z() == 1){
+        if (this.actionListener2.getDirection_z_up() == 1){
             if ((this.speed<=20f)&&(velocityRacketTwo.x<15f)){
                 game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(velocityRacketTwo.add(this.speed,0f,0f));
             }
         }
-        if (this.actionListener2.getDirection_z() == -1){
+        if (this.actionListener2.getDirection_z_down() == 1){
             if ((this.speed<=20f)&&(velocityRacketTwo.x>=-15f)){
                 game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(velocityRacketTwo.add(-this.speed,0f,0f));
             }
         }
 
 
-        if (this.actionListener2.getDirection_x() == 1){
+        if (this.actionListener2.getDirection_x_left() == 1){
             if ((this.speed<=20f)&&(velocityRacketTwo.z>=-15f)){
                 game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(velocityRacketTwo.add(0f,0f,-this.speed));
             }
         }
-        if (this.actionListener2.getDirection_x() == -1){
+        if (this.actionListener2.getDirection_x_right() == 1){
             if ((this.speed<=20f)&&(velocityRacketTwo.z<=15f)){
                 game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(velocityRacketTwo.add(0f,0f,this.speed));
             }
