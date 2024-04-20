@@ -16,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Racket extends MobileObject{
 
+    private static boolean firstPlayer = true;
+
     public static Racket of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot) throws FormException {
         Racket racket = new Racket(node, assetManager, bulletAppState);
         racket.constructPhysicalObject(form, spawnOrNot);
@@ -42,7 +44,12 @@ public class Racket extends MobileObject{
 
     @Override
     protected void setTextures() {
-        this.material.setTexture("DiffuseMap", this.assetManager.loadTexture("assets/Textures/Racket/racket_texture.jpg"));
+        if (Racket.firstPlayer) {
+            this.material.setTexture("DiffuseMap", this.assetManager.loadTexture("assets/Textures/Racket/racket_texture1.jpg"));
+            Racket.firstPlayer = false;
+        }
+        else
+            this.material.setTexture("DiffuseMap", this.assetManager.loadTexture("assets/Textures/Racket/racket_texture2.jpg"));
     }
 
     @Override
