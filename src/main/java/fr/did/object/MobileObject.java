@@ -18,32 +18,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class MobileObject {
-
-    @Setter(AccessLevel.NONE)
-    protected static int idCounter = 0;
-
-    protected int id;
-    protected Geometry geometry;
-    protected Material material;
-    protected Node node;
-    protected final AssetManager assetManager;
-    protected final BulletAppState bulletAppState;
-    @Setter(AccessLevel.NONE)
-    protected float height;
-    protected float globalSize = 100; //percentage
-    protected float mass = 10.0f;
-
-    protected CollisionShape collisionShape;
-    protected RigidBodyControl rigidBodyControl;
+public abstract class MobileObject extends PhysicalObject{
 
     protected MobileObject(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
-        this.id = MobileObject.idCounter;
-        MobileObject.idCounter++;
-        this.material = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-        this.node = node;
-        this.assetManager = assetManager;
-        this.bulletAppState = bulletAppState;
+        super(node, assetManager, bulletAppState);
     }
 
     /**
@@ -53,6 +31,7 @@ public abstract class MobileObject {
      * @param spawnOrNot apparition ou non de l'objet
      * @throws FormException exception de la forme de l'objet
      */
+    @Override
     protected void constructPhysicalObject(String form, boolean spawnOrNot) throws FormException {
         MobileObject.formConstruct(form, this);
         this.collisionShape = CollisionShapeFactory.createDynamicMeshShape(this.getGeometry());
@@ -87,52 +66,5 @@ public abstract class MobileObject {
     protected void createCylinder() {
         Cylinder cylinder = new Cylinder(100,100,this.globalSize / 100.0f,this.height, true);
         this.geometry = new Geometry("Cylinder" + this.getId(), cylinder);
-    }
-
-    /**
-     * Appose un matériau et la texture sur la forme géométrique.
-     */
-    protected void setItems() {
-        this.geometry.setMaterial(this.material);
-        this.setTextures();
-    }
-
-    /**
-     * Relie l'objet avec les physics, au gérant d'états des physics
-     */
-    protected void linkPhysics() {
-        this.bulletAppState.getPhysicsSpace().add(this.rigidBodyControl);
-    }
-
-    protected abstract void setTextures();
-
-    /**
-     * Fait apparaître un objet mobile, en le plaçant à une position donnée
-     * sur le terrain via une translation partant du centre du noeud,
-     * et en lui appliquant son aspect visuel.
-     */
-    public void spawnObject(Vector3f translation) {
-        this.geometry.removeControl(this.rigidBodyControl);
-        this.geometry.rotate(0.0f, 0.0f, 90.0f * FastMath.DEG_TO_RAD);
-        this.geometry.rotate(0.0f, 90.0f * FastMath.DEG_TO_RAD, 0.0f);
-        this.geometry.setLocalTranslation(translation);
-        this.setItems();
-        this.geometry.addControl(this.rigidBodyControl);
-        this.linkPhysics();
-        this.node.attachChild(this.geometry);
-    }
-
-    /**
-     * Fait apparaître l'objet mobile, en le plaçant au centre du noeud,
-     * et en lui appliquant son aspect visuel.
-     */
-    public void spawnObject() {
-        this.geometry.removeControl(this.rigidBodyControl);
-        this.geometry.rotate(0.0f, 0.0f, 90.0f * FastMath.DEG_TO_RAD);
-        this.geometry.rotate(0.0f, 90.0f * FastMath.DEG_TO_RAD, 0.0f);
-        this.setItems();
-        this.geometry.addControl(this.rigidBodyControl);
-        this.linkPhysics();
-        this.node.attachChild(this.geometry);
     }
 }
