@@ -80,13 +80,13 @@ public class Session {
 
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
 
 
             createMiddleWall();
 
             this.bonuses = new ArrayList<>();
-            int j;
-            for(j=0;j<5;j++) this.bonuses.add(PillarBonus.of(this));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
@@ -144,12 +144,12 @@ public class Session {
         else if (numberPucks == 2) {
             int i;
             for (i=0;i<2;i++)
-                this.pucks.get(i).spawnObject(new Vector3f(0.0f, 0.0f, -(TABLE_WIDTH/4) + 2*i*(TABLE_WIDTH/4)));
+                this.pucks.get(i).spawnObject(new Vector3f(-(2*TABLE_WIDTH/4) + 2*i*(2*TABLE_WIDTH/4), 0.0f, 0.0f));
         }
         else {
             int i;
             for (i=0;i<3;i++)
-                this.pucks.get(i).spawnObject(new Vector3f(0.0f, 0.0f, -(TABLE_WIDTH/4) + i*(TABLE_WIDTH/4)));
+                this.pucks.get(i).spawnObject(new Vector3f(-(2*TABLE_WIDTH/4) + i*(2*TABLE_WIDTH/4), 0.0f, 0.0f));
         }
     }
 
