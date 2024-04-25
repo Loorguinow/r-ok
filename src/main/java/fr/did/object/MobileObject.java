@@ -57,6 +57,9 @@ public abstract class MobileObject {
         MobileObject.formConstruct(form, this);
         this.collisionShape = CollisionShapeFactory.createDynamicMeshShape(this.getGeometry());
         this.rigidBodyControl = new RigidBodyControl(this.getCollisionShape(), this.getMass());
+        if(form == ObjectForm.CYLINDER) {
+            rigidBodyControl.setAngularFactor(0f);
+        }
         this.geometry.addControl(this.rigidBodyControl);
         if (spawnOrNot) this.spawnObject();
     }
