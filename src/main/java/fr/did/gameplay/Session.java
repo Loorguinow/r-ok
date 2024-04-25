@@ -15,17 +15,19 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import fr.did.exceptions.fr.did.object.FormException;
-import fr.did.object.AirHockeyTable;
-import fr.did.object.ObjectForm;
-import fr.did.object.Puck;
-import fr.did.object.Racket;
+import fr.did.object.*;
+import fr.did.object.bonus.Bonus;
+import fr.did.object.bonus.RacketSizeBonus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Slf4j@Getter
+@Slf4j
+@Getter
 public class Session {
 
     private final Node node;
@@ -36,8 +38,9 @@ public class Session {
     private final FlyByCamera cameraControler;
     private final Score score;
     private final AirHockeyTable table;
-    public List<Racket> rackets;
+    private List<Racket> rackets;
     private List<Puck> pucks;
+    private List<Bonus> bonuses;
 
     public static final float TABLE_LENGTH = 20.0f;
     public static final float TABLE_WIDTH = 10.0f;
@@ -61,18 +64,19 @@ public class Session {
         this.table = AirHockeyTable.of(Session.TABLE_LENGTH, Session.TABLE_WIDTH, this.node, this.assetManager, this.bulletAppState);;
         try {
             this.rackets = new ArrayList<>(){};
-            this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+            this.rackets.add(Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
 
 
-            this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+            this.rackets.add(Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
 
 
 
             this.pucks = new ArrayList<>();
-            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
 
+            this.bonuses = new ArrayList<>();
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
