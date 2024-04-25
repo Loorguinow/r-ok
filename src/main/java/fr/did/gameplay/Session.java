@@ -70,6 +70,8 @@ public class Session {
 
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
