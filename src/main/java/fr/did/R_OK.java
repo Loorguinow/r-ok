@@ -181,14 +181,14 @@ public class R_OK extends SimpleApplication {
         super.simpleUpdate(tpf);
 
         if (this.game.getScore().getRight() == Score.WINNER_SCORE){
-            System.out.println("ROUGE A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            System.out.println("ROUGE A GAGNÉ LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
             this.game.getScore().setRight(0);
             this.game.getScore().setLeft(0);
             this.game.getScore().updateNewScore();
         }
 
         else if (this.game.getScore().getLeft() == Score.WINNER_SCORE){
-            System.out.println("BLEU A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            System.out.println("BLEU A GAGNÉ LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
             this.game.getScore().setRight(0);
             this.game.getScore().setLeft(0);
             this.game.getScore().updateNewScore();

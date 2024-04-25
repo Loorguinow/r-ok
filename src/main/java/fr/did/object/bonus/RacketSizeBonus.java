@@ -36,21 +36,22 @@ public class RacketSizeBonus extends Bonus{
     public void makeEffect(String whichPlayer) {
         if (whichPlayer == "L") {
             Racket originalRacket = this.rackets.get(0);
-            //todo modifier firstPlayer
-            this.replaceRacket(originalRacket);
+            Racket.firstPlayer = true;
+            this.replaceRacket(originalRacket, 0);
+            System.out.println(this.rackets);
         }
         else { //whichPLayer = "R"
             Racket originalRacket = this.rackets.get(1);
-            this.replaceRacket(originalRacket);
+            this.replaceRacket(originalRacket, 1);
         }
     }
 
-    private void replaceRacket(Racket racket) {
+    private void replaceRacket(Racket racket, int index) {
         final int newSize = (int)(racket.getGlobalSize() + this.effect);
         Vector3f posRacket = racket.getGeometry().getWorldTranslation();
         try {
             Racket newRacket = Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false, newSize);
-            this.rackets.add(0, newRacket);
+            this.rackets.add(index, newRacket);
             newRacket.spawnObject(posRacket);
             racket.getBulletAppState().getPhysicsSpace().remove(racket.getRigidBodyControl());
             racket.getNode().detachChild(racket.getGeometry());
