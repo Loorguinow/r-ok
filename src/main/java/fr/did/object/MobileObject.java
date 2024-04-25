@@ -2,17 +2,12 @@ package fr.did.object;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
-import com.jme3.material.Material;
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Cylinder;
 import fr.did.exceptions.fr.did.object.FormException;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,7 +31,7 @@ public abstract class MobileObject extends PhysicalObject{
         MobileObject.formConstruct(form, this);
         this.collisionShape = CollisionShapeFactory.createDynamicMeshShape(this.getGeometry());
         this.rigidBodyControl = new RigidBodyControl(this.getCollisionShape(), this.getMass());
-        if(form == ObjectForm.CYLINDER) {
+        if(form == MobileObjectForm.CYLINDER) {
             rigidBodyControl.setAngularFactor(0f);
         }
         this.geometry.addControl(this.rigidBodyControl);
