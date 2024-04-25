@@ -91,4 +91,6 @@ public abstract class Bonus extends PhysicalObject {
         this.linkPhysics();
         this.node.attachChild(this.collisionGeometry);
     }
+
+    public abstract void makeEffect(String whichPlayer);
 }

@@ -16,15 +16,13 @@ import fr.did.gameplay.Score;
 import fr.did.gameplay.Session;
 import fr.did.object.Puck;
 import fr.did.object.Racket;
+import fr.did.object.bonus.Bonus;
 
 public class R_OK extends SimpleApplication {
     private RacketActionListener actionListener;
 
     private  RacketActionListener actionListener2;
     private Session game;
-
-
-
     private float speed = 1;
     public static void main(String[] args) {
         R_OK app = new R_OK();
@@ -33,9 +31,7 @@ public class R_OK extends SimpleApplication {
 
     private boolean checkCollision(PhysicsCollisionEvent event, String objectAName, String objectBName) {
         String aName = event.getObjectA().getUserObject().toString();
-        //System.out.println(aName);
         String bName = event.getObjectB().getUserObject().toString();
-        //System.out.println(bName);
 
         // Vérifiez si les noms des objets en collision correspondent aux noms spécifiés
         if ((aName.equals(objectAName) && bName.equals(objectBName)) ||
@@ -58,17 +54,16 @@ public class R_OK extends SimpleApplication {
         Session game = Session.of(rootNode, assetManager, bulletAppState, this.cam, this.flyCam);
         this.game = game;
 
-        PhysicsCollisionListener puckGoal1 = new PhysicsCollisionListener() {
+        PhysicsCollisionListener puckGoal = new PhysicsCollisionListener() {
             @Override
             public void collision(PhysicsCollisionEvent event) {
                 int nbPuck = game.getPucks().size();
                 int i;
                 for (i = 0; i < nbPuck; i++) {
                     Puck p = game.getPucks().get(i);
-                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor (Geometry)")||checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageIn (Geometry)")) {
+                    if (checkCollision(event, p.getGeometry().toString(), "CageFloor (Geometry)")||checkCollision(event, p.getGeometry().toString(), "CageIn (Geometry)")) {
                         game.getScore().rightPoint();
                         game.getScore().updateNewScore();
-                        //System.out.println(nbPuck);
                         if (nbPuck == 1) {
                             p.getGeometry().removeControl(p.getRigidBodyControl());
                             p.getGeometry().rotate(90.0f * FastMath.DEG_TO_RAD, 0.0f, 0f);
@@ -84,10 +79,9 @@ public class R_OK extends SimpleApplication {
 
                     }
 
-                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor2 (Geometry)")||checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageIn2 (Geometry)")) {
+                    if (checkCollision(event, p.getGeometry().toString(), "CageFloor2 (Geometry)")||checkCollision(event, p.getGeometry().toString(), "CageIn2 (Geometry)")) {
                         game.getScore().leftPoint();
                         game.getScore().updateNewScore();
-                        //System.out.println(nbPuck);
                         if (nbPuck == 1) {
                             p.getGeometry().removeControl(p.getRigidBodyControl());
                             p.getGeometry().rotate(90.0f * FastMath.DEG_TO_RAD, 0.0f, 0f);
@@ -104,11 +98,38 @@ public class R_OK extends SimpleApplication {
                     }
                 }
             }
-
-
+        };
+        PhysicsCollisionListener racketBonus = new PhysicsCollisionListener() {
+            @Override
+            public void collision(PhysicsCollisionEvent event) {
+                int nbBonuses = game.getBonuses().size();
+                int i;
+                for (i=0;i<nbBonuses;i++) {
+                    Racket racket0 = game.getRackets().get(0);
+                    Racket racket1 = game.getRackets().get(1);
+                    Bonus bonus = game.getBonuses().get(i);
+                    if (checkCollision(event, racket0.getGeometry().toString(), bonus.getCollisionGeometry().toString())) {
+                        bonus.makeEffect("L");
+                        bonus.getBulletAppState().getPhysicsSpace().remove(bonus.getRigidBodyControl());
+                        bonus.getNode().detachChild(bonus.getGeometry());
+                        bonus.getNode().detachChild(bonus.getCollisionGeometry());
+                        game.getPucks().remove(bonus);
+                        nbBonuses--;
+                    }
+                    else if (checkCollision(event, racket1.getGeometry().toString(), bonus.getCollisionGeometry().toString())) {
+                        bonus.makeEffect("R");
+                        bonus.getBulletAppState().getPhysicsSpace().remove(bonus.getRigidBodyControl());
+                        bonus.getNode().detachChild(bonus.getGeometry());
+                        bonus.getNode().detachChild(bonus.getCollisionGeometry());
+                        game.getPucks().remove(bonus);
+                        nbBonuses--;
+                    }
+                }
+            }
         };
 
-        bulletAppState.getPhysicsSpace().addCollisionListener(puckGoal1);
+        bulletAppState.getPhysicsSpace().addCollisionListener(puckGoal);
+        bulletAppState.getPhysicsSpace().addCollisionListener(racketBonus);
 
         // Ajouter les touches avec les actions correspondantes
         this.inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));

@@ -29,4 +29,9 @@ public class RacketSizeBonus extends Bonus{
     protected void setTextures() {
         this.material.setTexture("DiffuseMap", this.assetManager.loadTexture("assets/Textures/Bonus/mystery.png"));
     }
+
+    @Override
+    public void makeEffect(String whichPlayer) {
+
+    }
 }
