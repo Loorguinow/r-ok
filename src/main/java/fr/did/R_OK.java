@@ -40,7 +40,7 @@ public class R_OK extends SimpleApplication {
         this.inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
 
 
-        RacketActionListener actionRacket1 = new RacketActionListener(game.rackets.get(0));
+        RacketActionListener actionRacket1 = new RacketActionListener(game.getRackets().get(0));
         this.actionListener = actionRacket1;
         this.inputManager.addListener(actionRacket1,"Up", "Down", "Left", "Right");
 
@@ -49,7 +49,7 @@ public class R_OK extends SimpleApplication {
         inputManager.addMapping("Up2", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("Down2", new KeyTrigger(KeyInput.KEY_DOWN));
 
-        RacketActionListener actionRacket2 = new RacketActionListener(game.rackets.get(1));
+        RacketActionListener actionRacket2 = new RacketActionListener(game.getRackets().get(1));
         this.actionListener2 = actionRacket2;
         this.inputManager.addListener(actionRacket2,"Up2", "Down2", "Left2", "Right2");
 

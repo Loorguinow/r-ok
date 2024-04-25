@@ -20,7 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Slf4j@Getter
+@Slf4j
+@Getter
 public class Session {
 
     private final Node node;
@@ -31,7 +32,7 @@ public class Session {
     private final FlyByCamera cameraControler;
     private final Score score;
     private final AirHockeyTable table;
-    public List<Racket> rackets;
+    private List<Racket> rackets;
     private List<Puck> pucks;
 
     public static final float TABLE_LENGTH = 20.0f;
