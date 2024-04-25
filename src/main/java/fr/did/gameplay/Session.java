@@ -3,9 +3,14 @@ package fr.did.gameplay;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.FlyByCamera;
+import com.jme3.input.InputManager;
+import com.jme3.input.KeyInput;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
@@ -32,7 +37,7 @@ public class Session {
     private final FlyByCamera cameraControler;
     private final Score score;
     private final AirHockeyTable table;
-    private List<Racket> rackets;
+    public List<Racket> rackets;
     private List<Puck> pucks;
 
     public static final float TABLE_LENGTH = 20.0f;
@@ -66,6 +71,10 @@ public class Session {
 
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
