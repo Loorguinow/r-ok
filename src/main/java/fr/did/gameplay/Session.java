@@ -17,6 +17,7 @@ import com.jme3.scene.Node;
 import fr.did.exceptions.fr.did.object.FormException;
 import fr.did.object.*;
 import fr.did.object.bonus.Bonus;
+import fr.did.object.bonus.PillarBonus;
 import fr.did.object.bonus.RacketSizeBonus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -77,6 +78,8 @@ public class Session {
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
 
             this.bonuses = new ArrayList<>();
+            int j;
+            for(j=0;j<5;j++) this.bonuses.add(PillarBonus.of(this));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }

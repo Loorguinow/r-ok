@@ -69,11 +69,11 @@ public abstract class Bonus extends PhysicalObject {
     protected void randomSpawn() {
         this.collisionGeometry.removeControl(this.rigidBodyControl);
         boolean xSign = this.random.nextBoolean();
-        boolean ySign = this.random.nextBoolean();
+        boolean zSign = this.random.nextBoolean();
         float x = this.random.nextInt((int)this.xWidth +1-2); //+1 car de 0 à this.xWidth -1; -2 car éloignement des bords
         float z = this.random.nextInt((int)this.zLength +1-2); //Pareil mais pour la longueur
         if (!xSign) x = -x;
-        if (!ySign) z = -z;
+        if (!zSign) z = -z;
         this.collisionGeometry.addControl(this.rigidBodyControl);
         this.spawnObject(new Vector3f(x, 0.0f, z));
     }
