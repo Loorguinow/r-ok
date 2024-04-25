@@ -6,14 +6,16 @@ import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import com.jme3.scene.Node;
 
 @Getter
 @Slf4j
 public class Score {
-
+    @Setter
     private int left = 0;
+    @Setter
     private int right = 0;
 
     private final AssetManager assetManager;
@@ -22,13 +24,15 @@ public class Score {
 
     private Node node;
 
+
+    @Getter
     private BitmapText scoreText;
 
     /*
     Score pour qu'un joueur gagne. Si égal à 11, alors jeu en 21 points
     sauf si un joueur arrive à avoir 11 de score avant les 21 points à jouer.
      */
-    private static final int WINNER_SCORE = 11;
+    public static final int WINNER_SCORE = 11;
 
     public static Score of(AssetManager assetManager,float pos_cam,Node n) {
         return new Score(assetManager,pos_cam,n);
@@ -91,7 +95,7 @@ public class Score {
         scoreText.setColor(ColorRGBA.White);
         float angleInDegrees = 90; // Angle de rotation en degrés
         scoreText.rotate(0, -(FastMath.DEG_TO_RAD * angleInDegrees), 0); // Convertir en radians avant de passer à la méthode rotate
-        scoreText.setLocalTranslation(10, (pos_cam/100) -3, -1); // Positionner le texte en haut à gauche
+        scoreText.setLocalTranslation(11, (pos_cam/100) -3, -3); // Positionner le texte en haut
 
         // Attacher le texte à la scène
         this.node.attachChild(scoreText);

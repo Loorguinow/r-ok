@@ -12,6 +12,7 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import fr.did.gameplay.RacketActionListener;
+import fr.did.gameplay.Score;
 import fr.did.gameplay.Session;
 import fr.did.object.Puck;
 import fr.did.object.Racket;
@@ -64,7 +65,7 @@ public class R_OK extends SimpleApplication {
                 int i;
                 for (i = 0; i < nbPuck; i++) {
                     Puck p = game.getPucks().get(i);
-                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor (Geometry)")) {
+                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor (Geometry)")||checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageIn (Geometry)")) {
                         game.getScore().rightPoint();
                         game.getScore().updateNewScore();
                         //System.out.println(nbPuck);
@@ -83,8 +84,8 @@ public class R_OK extends SimpleApplication {
 
                     }
 
-                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor2 (Geometry)")) {
-                        game.getScore().rightPoint();
+                    if (checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageFloor2 (Geometry)")||checkCollision(event, game.getPucks().get(i).getGeometry().toString(), "CageIn2 (Geometry)")) {
+                        game.getScore().leftPoint();
                         game.getScore().updateNewScore();
                         //System.out.println(nbPuck);
                         if (nbPuck == 1) {
@@ -134,6 +135,20 @@ public class R_OK extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {
         super.simpleUpdate(tpf);
+
+        if (this.game.getScore().getRight() == Score.WINNER_SCORE){
+            System.out.println("ROUGE A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            this.game.getScore().setRight(0);
+            this.game.getScore().setLeft(0);
+            this.game.getScore().updateNewScore();
+        }
+
+        else if (this.game.getScore().getLeft() == Score.WINNER_SCORE){
+            System.out.println("BLEU A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            this.game.getScore().setRight(0);
+            this.game.getScore().setLeft(0);
+            this.game.getScore().updateNewScore();
+        }
 
         Vector3f velocityRacketOne = game.getRackets().get(0).getRigidBodyControl().getLinearVelocity();
         Vector3f velocityRacketTwo = game.getRackets().get(1).getRigidBodyControl().getLinearVelocity();
@@ -190,5 +205,6 @@ public class R_OK extends SimpleApplication {
                 game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(velocityRacketTwo.add(0f,0f,this.speed));
             }
         }
+
     }
 }
