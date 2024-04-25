@@ -180,8 +180,8 @@ public class AirHockeyTable{
         this.bulletAppState.getPhysicsSpace().add(poleGeo1);
         this.node.attachChild(poleGeo1);
 
-        Box cageIn = new Box(0.1f,1f,-2f);
-        BoxCollisionShape cageInShape = new BoxCollisionShape(new Vector3f(0.1f,1f,-2f));
+        Box cageIn = new Box(0.1f,1f,2f);
+        BoxCollisionShape cageInShape = new BoxCollisionShape(new Vector3f(0.1f,1f,2f));
         BoxCollisionShape cageInShape2 = new BoxCollisionShape(new Vector3f(this.largeur/3f, 1f,0.1f));
 
         Geometry cageIn1 = new Geometry("Cage", cageIn);
@@ -299,6 +299,61 @@ public class AirHockeyTable{
         cornerWallGeo4.addControl(rigidBodyControlCornerWall4);
         this.bulletAppState.getPhysicsSpace().add(cornerWallGeo4);
         this.node.attachChild(cornerWallGeo4);
+
+        // Créer la géométrie du sol de la cage
+        Box cageFloorMesh = new Box(this.largeur / 3f, 0.1f, this.longueur/8f); // Taille du sol de la cage
+        Geometry cageFloorGeo = new Geometry("CageFloor", cageFloorMesh);
+        cageFloorGeo.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
+        cageFloorGeo.setLocalTranslation(0.1f, -0.6f, -this.longueur-2.5f); // Positionner sous les autres parties de la cage
+
+        // Créer une forme de collision pour le sol de la cage
+        BoxCollisionShape cageFloorShape = new BoxCollisionShape(new Vector3f(this.largeur / 3f, 0.1f, this.longueur/8f));
+
+        // Ajouter un contrôle de corps rigide pour le sol de la cage
+        RigidBodyControl cageFloorControl = new RigidBodyControl(cageFloorShape, 0f); // Masse de 0 car le sol est statique
+        cageFloorGeo.addControl(cageFloorControl);
+
+        // Créer le matériau pour le sol de la cage avec une couleur verte
+        Material cageFloorMat = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        cageFloorMat.setColor("Color", ColorRGBA.Green); // Définir la couleur verte
+
+        // Appliquer le matériau au sol de la cage
+        cageFloorGeo.setMaterial(cageFloorMat);
+
+        // Ajouter le sol de la cage à la scène et à l'espace de physique
+        this.node.attachChild(cageFloorGeo);
+        this.bulletAppState.getPhysicsSpace().add(cageFloorControl);
+
+
+        Geometry cageUp1 = new Geometry("CageUp", cageFloorMesh);
+        cageUp1.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
+        cageUp1.setLocalTranslation(0.1f, 1f, -this.longueur-2.5f);
+
+        this.node.attachChild(cageUp1);
+
+        Geometry cageFloorGeo2 = new Geometry("CageFloor2", cageFloorMesh);
+        cageFloorGeo2.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
+        cageFloorGeo2.setLocalTranslation(0.1f, -0.6f, this.longueur+2.5f); // Positionner sous les autres parties de la cage
+
+        // Créer une forme de collision pour le sol de la cage
+
+
+        // Ajouter un contrôle de corps rigide pour le sol de la cage
+        RigidBodyControl cageFloorControl2 = new RigidBodyControl(cageFloorShape, 0f); // Masse de 0 car le sol est statique
+        cageFloorGeo2.addControl(cageFloorControl2);
+
+        // Appliquer le matériau au sol de la cage
+        cageFloorGeo2.setMaterial(cageFloorMat);
+
+        this.node.attachChild(cageFloorGeo2);
+        this.bulletAppState.getPhysicsSpace().add(cageFloorControl2);
+
+        Geometry cageUp2 = new Geometry("CageUp", cageFloorMesh);
+        cageUp2.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
+        cageUp2.setLocalTranslation(0.1f, 1f, this.longueur+2.5f);
+
+        this.node.attachChild(cageUp2);
+
     }
 
 

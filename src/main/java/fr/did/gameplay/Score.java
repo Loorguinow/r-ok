@@ -87,7 +87,7 @@ public class Score {
         // Créer un texte pour afficher le score
         this.scoreText = new BitmapText(font, false);
         scoreText.setSize(1f);
-        scoreText.setText( this.left+" - "+this.right); // Initialiser le score à 0
+        scoreText.setText( "Bleu "+this.left+" - "+this.right+" Rouge"); // Initialiser le score à 0
         scoreText.setColor(ColorRGBA.White);
         float angleInDegrees = 90; // Angle de rotation en degrés
         scoreText.rotate(0, -(FastMath.DEG_TO_RAD * angleInDegrees), 0); // Convertir en radians avant de passer à la méthode rotate
@@ -97,6 +97,6 @@ public class Score {
         this.node.attachChild(scoreText);
     }
     public void updateNewScore() {
-        scoreText.setText( this.left+" - "+this.right);
+        scoreText.setText("Bleu "+this.left+" - "+this.right+" Rouge");
     }
 }
