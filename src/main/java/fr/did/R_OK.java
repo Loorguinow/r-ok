@@ -69,7 +69,18 @@ public class R_OK extends SimpleApplication {
                             p.getGeometry().rotate(90.0f * FastMath.DEG_TO_RAD, 0.0f, 0f);
                             p.getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             p.getGeometry().addControl(p.getRigidBodyControl());
-                            p.spawnObject(new Vector3f(0f, 0.1f, 0f));
+                            p.spawnObject(new Vector3f(0f, 0.1f, -5f));
+
+                            game.getRackets().get(0).getGeometry().removeControl(game.getRackets().get(0).getRigidBodyControl());
+                            game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
+                            game.getRackets().get(0).getGeometry().setLocalTranslation(0.0f, 0.1f, ((-Session.TABLE_LENGTH/4)*3));
+                            game.getRackets().get(0).getGeometry().addControl(game.getRackets().get(0).getRigidBodyControl());
+
+                            game.getRackets().get(1).getGeometry().removeControl(game.getRackets().get(1).getRigidBodyControl());
+                            game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
+                            game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
+                            game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
+
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
                             p.getNode().detachChild(p.getGeometry());
@@ -87,7 +98,19 @@ public class R_OK extends SimpleApplication {
                             p.getGeometry().rotate(90.0f * FastMath.DEG_TO_RAD, 0.0f, 0f);
                             p.getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             p.getGeometry().addControl(p.getRigidBodyControl());
-                            p.spawnObject(new Vector3f(0f, 0.1f, 0f));
+                            p.spawnObject(new Vector3f(0f, 0.1f, 5f));
+
+                            game.getRackets().get(0).getGeometry().removeControl(game.getRackets().get(0).getRigidBodyControl());
+                            game.getRackets().get(0).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
+                            game.getRackets().get(0).getGeometry().setLocalTranslation(0.0f, 0.1f, ((-Session.TABLE_LENGTH/4)*3));
+                            game.getRackets().get(0).getGeometry().addControl(game.getRackets().get(0).getRigidBodyControl());
+
+                            game.getRackets().get(1).getGeometry().removeControl(game.getRackets().get(1).getRigidBodyControl());
+                            game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
+                            game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
+                            game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
+
+
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
                             p.getNode().detachChild(p.getGeometry());

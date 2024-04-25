@@ -2,18 +2,24 @@ package fr.did.gameplay;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.input.FlyByCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
+import com.jme3.material.RenderState;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.shape.Box;
 import fr.did.exceptions.fr.did.object.FormException;
 import fr.did.object.*;
 import fr.did.object.bonus.Bonus;
@@ -74,8 +80,9 @@ public class Session {
 
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+
+
+            createMiddleWall();
 
             this.bonuses = new ArrayList<>();
             int j;
@@ -84,6 +91,37 @@ public class Session {
             log.error("Objet d'une forme inconnue", e);
         }
         this.initCamera();
+    }
+
+    private void  createMiddleWall(){
+        Box wallMeshInvisibleWall = new Box(this.table.getLargeur(), 1f,0.1f);
+
+        Geometry wallCenter  = new Geometry("WallCenter", wallMeshInvisibleWall);
+
+        Material invisibleMaterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        invisibleMaterial.setColor("Color", new ColorRGBA(0,0,0,0)); // Réglez l'alpha sur 0 pour le rendre transparent
+        invisibleMaterial.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha); // Activez la transparence
+
+        // Appliquez le matériau à la géométrie
+        wallCenter.setMaterial(invisibleMaterial);
+
+        // Créer une forme de collision pour le sol de la cage
+        BoxCollisionShape wallCenterShape = new BoxCollisionShape(new Vector3f(this.table.getLargeur(), 1f,0.1f));
+
+
+        // Ajouter un contrôle de corps rigide pour le sol de la cage
+        RigidBodyControl wallCenterControl = new RigidBodyControl(wallCenterShape, 0f);// Masse de 0 car le sol est statique
+        wallCenterControl.removeCollideWithGroup(pucks.get(0).getRigidBodyControl().getCollisionGroup());
+        wallCenterControl.setCollisionGroup(1);
+
+
+        for(Puck p :pucks){
+        p.getRigidBodyControl().addCollideWithGroup(3);
+        p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
+
+        wallCenter.addControl(wallCenterControl);
+        this.node.attachChild(wallCenter);
+        this.bulletAppState.getPhysicsSpace().add(wallCenterControl);
     }
 
     /**
