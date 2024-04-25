@@ -39,8 +39,8 @@ public class Session {
     public List<Racket> rackets;
     private List<Puck> pucks;
 
-    private static final float TABLE_LENGTH = 20.0f;
-    private static final float TABLE_WIDTH = 10.0f;
+    public static final float TABLE_LENGTH = 20.0f;
+    public static final float TABLE_WIDTH = 10.0f;
 
     public static Session of(Node node, AssetManager assetManager, BulletAppState bulletAppState, Camera camera, FlyByCamera cameraControler) {
         Session session = new Session(node, assetManager, bulletAppState, camera, cameraControler);
@@ -69,7 +69,7 @@ public class Session {
 
 
             this.pucks = new ArrayList<>();
-            this.pucks.add(Puck.of("cylinder", node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
