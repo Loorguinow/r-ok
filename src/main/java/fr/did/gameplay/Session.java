@@ -77,9 +77,6 @@ public class Session {
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
 
             this.bonuses = new ArrayList<>();
-            int j;
-            for (j=0;j<10;j++)
-                this.bonuses.add(RacketSizeBonus.of(StaticObjectForm.CUBE, true, this));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
