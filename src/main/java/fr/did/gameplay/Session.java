@@ -3,27 +3,22 @@ package fr.did.gameplay;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.input.FlyByCamera;
-import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
-import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import fr.did.exceptions.fr.did.object.FormException;
-import fr.did.object.AirHockeyTable;
-import fr.did.object.ObjectForm;
-import fr.did.object.Puck;
-import fr.did.object.Racket;
+import fr.did.object.*;
+import fr.did.object.bonus.RacketSizeBonus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j@Getter
 public class Session {
@@ -61,15 +56,15 @@ public class Session {
         this.table = AirHockeyTable.of(Session.TABLE_LENGTH, Session.TABLE_WIDTH, this.node, this.assetManager, this.bulletAppState);;
         try {
             this.rackets = new ArrayList<>(){};
-            this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+            this.rackets.add(Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
 
 
-            this.rackets.add(Racket.of(ObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+            this.rackets.add(Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
 
 
 
             this.pucks = new ArrayList<>();
-            this.pucks.add(Puck.of(ObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
