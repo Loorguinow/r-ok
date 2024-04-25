@@ -202,7 +202,7 @@ public class AirHockeyTable{
         this.node.attachChild(cageIn2);
 
 
-        Geometry cageIn3 = new Geometry("Cage",cageMesh);
+        Geometry cageIn3 = new Geometry("CageIn",cageMesh);
         cageIn3.setMaterial(tableMat);
         cageIn3.setLocalTranslation(0.1f, 0f, -this.longueur-4f);
         RigidBodyControl rigidBodyCageIn3 = new RigidBodyControl(cageInShape2, 0f);
@@ -210,7 +210,7 @@ public class AirHockeyTable{
         this.bulletAppState.getPhysicsSpace().add(cageIn3);
         this.node.attachChild(cageIn3);
 
-        Geometry cageGeo2 = new Geometry("Cage2", cageMesh);
+        Geometry cageGeo2 = new Geometry("Cage", cageMesh);
         cageMat.setColor("Color", ColorRGBA.Red); // Couleur noire pour la cage
         cageGeo2.setMaterial(cageMat);
         cageGeo2.setLocalTranslation(0f, 0f, -this.longueur); // Positionnée au milieu des murs
@@ -242,7 +242,7 @@ public class AirHockeyTable{
         this.node.attachChild(cageIn5);
 
 
-        Geometry cageIn6 = new Geometry("Cage",cageMesh);
+        Geometry cageIn6 = new Geometry("CageIn2",cageMesh);
         cageIn6.setMaterial(tableMat);
         cageIn6.setLocalTranslation(0.1f, 0f, this.longueur+4f);
         RigidBodyControl rigidBodyCageIn6 = new RigidBodyControl(cageInShape2, 0f);
@@ -304,7 +304,7 @@ public class AirHockeyTable{
         Box cageFloorMesh = new Box(this.largeur / 3f, 0.1f, this.longueur/8f); // Taille du sol de la cage
         Geometry cageFloorGeo = new Geometry("CageFloor", cageFloorMesh);
         cageFloorGeo.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
-        cageFloorGeo.setLocalTranslation(0.1f, -0.6f, -this.longueur-2.5f); // Positionner sous les autres parties de la cage
+        cageFloorGeo.setLocalTranslation(0.1f, -0.6f, -this.longueur-1.9f); // Positionner sous les autres parties de la cage
 
         // Créer une forme de collision pour le sol de la cage
         BoxCollisionShape cageFloorShape = new BoxCollisionShape(new Vector3f(this.largeur / 3f, 0.1f, this.longueur/8f));
@@ -333,7 +333,7 @@ public class AirHockeyTable{
 
         Geometry cageFloorGeo2 = new Geometry("CageFloor2", cageFloorMesh);
         cageFloorGeo2.setMaterial(tableMat); // Appliquer le même matériau que les autres parties de la cage
-        cageFloorGeo2.setLocalTranslation(0.1f, -0.6f, this.longueur+2.5f); // Positionner sous les autres parties de la cage
+        cageFloorGeo2.setLocalTranslation(0.1f, -0.6f, this.longueur+1.9f); // Positionner sous les autres parties de la cage
 
         // Créer une forme de collision pour le sol de la cage
 
