@@ -17,6 +17,7 @@ public class Puck extends MobileObject{
         Puck puck = new Puck(node, assetManager, bulletAppState);
         puck.constructPhysicalObject(form, spawnOrNot);
         puck.rigidBodyControl.setRestitution(0.3f);
+        puck.rigidBodyControl.setCollisionGroup(3);
         return puck;
     }
 
@@ -24,6 +25,7 @@ public class Puck extends MobileObject{
         Puck puck = new Puck(node, assetManager, bulletAppState, size);
         puck.constructPhysicalObject(form, spawnOrNot);
         puck.rigidBodyControl.setRestitution(0.3f);
+        puck.rigidBodyControl.setCollisionGroup(3);
         return puck;
     }
 
