@@ -7,15 +7,11 @@ import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Box;
-import fr.did.exceptions.fr.did.object.FormException;
+import fr.did.gameplay.Session;
 
-public class Bonus extends PhysicalObject{
+public abstract class Bonus extends PhysicalObject{
 
-    public static Bonus of(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
-        return new Bonus(node, assetManager, bulletAppState);
-    }
-
-    private Bonus(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
+    protected Bonus(Node node, AssetManager assetManager, BulletAppState bulletAppState) {
         super(node, assetManager, bulletAppState);
     }
 
@@ -28,10 +24,5 @@ public class Bonus extends PhysicalObject{
         this.rigidBodyControl = new RigidBodyControl(this.getCollisionShape(), this.getMass());
         this.geometry.addControl(this.rigidBodyControl);
         if (spawnOrNot) this.spawnObject();
-    }
-
-    @Override
-    protected void setTextures() {
-        //todo
     }
 }
