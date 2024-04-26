@@ -182,7 +182,7 @@ public class Session {
     public void maybeMultiplePucks() {
         this.multiplePucksOrNot = (this.random.nextInt(1,11) <= 3);
         if (this.multiplePucksOrNot) {
-            int twoOrThree = this.random.nextInt(2,3);
+            int twoOrThree = this.random.nextInt(2,4);
             if (twoOrThree == 2) {
                 try {
                     Puck puck = this.pucks.get(0);
@@ -223,7 +223,7 @@ public class Session {
     }
 
     public void maybeBonuses() {
-        boolean bonusesOrNot = (this.random.nextInt(1,11) <= 3);
+        boolean bonusesOrNot = (this.random.nextInt(1,11) <= 4);
         if (bonusesOrNot) {
             this.multipleBonuses = this.random.nextBoolean();
             int nBonuses = 1;
@@ -256,8 +256,12 @@ public class Session {
         int i;
         int nbBonuses = this.bonuses.size();
         for (i=0;i<nbBonuses;i++) {
-            this.bonuses.get(i).removeEffect();
-            this.bonuses.remove(this.bonuses.get(i));
+            Bonus bonus = this.bonuses.get(i);
+            bonus.removeEffect();
+            bonus.getBulletAppState().getPhysicsSpace().remove(bonus.getRigidBodyControl());
+            bonus.getNode().detachChild(bonus.getGeometry());
+            bonus.getNode().detachChild(bonus.getCollisionGeometry());
+            this.bonuses.remove(bonus);
             i--;
             nbBonuses--;
             System.out.println(this.bonuses);
