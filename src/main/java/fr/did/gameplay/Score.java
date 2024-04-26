@@ -91,16 +91,16 @@ public class Score {
         // Créer un texte pour afficher le score
         this.scoreText = new BitmapText(font, false);
         scoreText.setSize(1f);
-        scoreText.setText( "Bleu "+this.left+" - "+this.right+" Rouge"); // Initialiser le score à 0
+        scoreText.setText( "P:RestartRound                                                 Bleu "+this.left+" - "+this.right+" Rouge"); // Initialiser le score à 0
         scoreText.setColor(ColorRGBA.White);
         float angleInDegrees = 90; // Angle de rotation en degrés
         scoreText.rotate(0, -(FastMath.DEG_TO_RAD * angleInDegrees), 0); // Convertir en radians avant de passer à la méthode rotate
-        scoreText.setLocalTranslation(11, (pos_cam/100) -3, -3); // Positionner le texte en haut
+        scoreText.setLocalTranslation(11, (pos_cam/100) -3, -22); // Positionner le texte en haut
 
         // Attacher le texte à la scène
         this.node.attachChild(scoreText);
     }
     public void updateNewScore() {
-        scoreText.setText("Bleu "+this.left+" - "+this.right+" Rouge");
+        scoreText.setText("P:RestartRound                                                 Bleu "+this.left+" - "+this.right+" Rouge");
     }
 }
