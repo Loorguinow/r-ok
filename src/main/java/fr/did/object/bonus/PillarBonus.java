@@ -38,7 +38,7 @@ public class PillarBonus extends Bonus{
             int i;
             for (i=0;i<1;i++)
                 try {
-                    this.pillars.add(Pillar.of(this.node, this.assetManager, this.bulletAppState, "L"));
+                    this.pillars.add(Pillar.of(this.node, this.assetManager, this.bulletAppState, "R"));
                 } catch (FormException e) {
                     e.printStackTrace();
                 }
@@ -48,5 +48,19 @@ public class PillarBonus extends Bonus{
     @Override
     protected void setTextures() {
         this.material.setTexture("DiffuseMap", this.assetManager.loadTexture("assets/Textures/Bonus/mystery.png"));
+    }
+
+    @Override
+    public void removeEffect() {
+        int i;
+        int nbPillars = this.pillars.size();
+        for (i=0;i<nbPillars;i++) {
+            Pillar p = this.pillars.get(i);
+            p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
+            p.getNode().detachChild(p.getGeometry());
+            this.pillars.remove(0);
+            nbPillars--;
+            i--;
+        }
     }
 }

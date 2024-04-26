@@ -28,10 +28,7 @@ import fr.did.object.bonus.RacketSizeBonus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Getter
@@ -48,9 +45,16 @@ public class Session {
     private List<Racket> rackets;
     private List<Puck> pucks;
     private List<Bonus> bonuses;
+    private boolean multiplePucksOrNot = false;
+<<<<<<< HEAD
+    private boolean multipleBonuses = false;
+=======
+>>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
+    private Random random = new Random();
 
     public static final float TABLE_LENGTH = 20.0f;
     public static final float TABLE_WIDTH = 10.0f;
+    private RigidBodyControl wallCenterControl;
 
     public static Session of(Node node, AssetManager assetManager, BulletAppState bulletAppState, Camera camera, FlyByCamera cameraControler) {
         Session session = new Session(node, assetManager, bulletAppState, camera, cameraControler);
@@ -80,8 +84,8 @@ public class Session {
 
             this.pucks = new ArrayList<>();
             this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
-            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            //this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
+            //this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, node, assetManager, bulletAppState, false));
 
 
             createMiddleWall();
@@ -110,9 +114,9 @@ public class Session {
 
 
         // Ajouter un contrôle de corps rigide pour le sol de la cage
-        RigidBodyControl wallCenterControl = new RigidBodyControl(wallCenterShape, 0f);// Masse de 0 car le sol est statique
-        wallCenterControl.removeCollideWithGroup(pucks.get(0).getRigidBodyControl().getCollisionGroup());
-        wallCenterControl.setCollisionGroup(1);
+        this.wallCenterControl = new RigidBodyControl(wallCenterShape, 0f);// Masse de 0 car le sol est statique
+        this.wallCenterControl.removeCollideWithGroup(pucks.get(0).getRigidBodyControl().getCollisionGroup());
+        this.wallCenterControl.setCollisionGroup(1);
 
 
         for(Puck p :pucks){
@@ -177,4 +181,105 @@ public class Session {
     private void spawnScore(){
         this.score.DisplayScore();
     }
+
+    public void maybeMultiplePucks() {
+<<<<<<< HEAD
+        this.multiplePucksOrNot = (this.random.nextInt(1,11) <= 3);
+=======
+        this.multiplePucksOrNot = (this.random.nextInt(1,11) <= 10);
+>>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
+        if (this.multiplePucksOrNot) {
+            int twoOrThree = this.random.nextInt(2,3);
+            if (twoOrThree == 2) {
+                try {
+<<<<<<< HEAD
+                    Puck puck = this.pucks.get(0);
+                    puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
+                    puck.getNode().detachChild(puck.getGeometry());
+                    this.getPucks().remove(0);
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    for(Puck p :this.pucks){
+                        p.getRigidBodyControl().addCollideWithGroup(3);
+                        p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
+
+                    this.spawnPucks();
+=======
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+>>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
+                } catch (FormException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+<<<<<<< HEAD
+                    Puck puck = this.pucks.get(0);
+                    puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
+                    puck.getNode().detachChild(puck.getGeometry());
+                    this.getPucks().remove(0);
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    for(Puck p :this.pucks){
+                        p.getRigidBodyControl().addCollideWithGroup(3);
+                        p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
+
+                    this.spawnPucks();
+=======
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+>>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
+                } catch (FormException e) {
+                    e.printStackTrace();
+                }
+            }
+        this.multiplePucksOrNot = false;
+        }
+    }
+<<<<<<< HEAD
+
+    public void maybeBonuses() {
+        boolean bonusesOrNot = (this.random.nextInt(1,11) <= 3);
+        if (bonusesOrNot) {
+            this.multipleBonuses = this.random.nextBoolean();
+            int nBonuses = 1;
+            if (this.multipleBonuses) nBonuses++;
+            int i;
+            int whichBonus;
+            for (i=0;i<nBonuses;i++) {
+                //System.out.println(i);
+                whichBonus = this.random.nextInt(1,3);
+                if (whichBonus == 1) {
+                    try {
+                        this.bonuses.add(RacketSizeBonus.of(StaticObjectForm.CUBE, true, this));
+                        //System.out.println("TEST1");
+                    } catch (FormException e) {
+                        e.printStackTrace();
+                    }
+                } else if (whichBonus == 2) {
+                    try {
+                        this.bonuses.add(PillarBonus.of(this));
+                        //System.out.println("TEST2");
+                    } catch (FormException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    public void removeBonuses() {
+        int i;
+        int nbBonuses = this.bonuses.size();
+        for (i=0;i<nbBonuses;i++) {
+            this.bonuses.get(i).removeEffect();
+            this.bonuses.remove(this.bonuses.get(i));
+            i--;
+            nbBonuses--;
+            System.out.println(this.bonuses);
+        }
+    }
+=======
+>>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
 }

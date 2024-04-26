@@ -14,6 +14,7 @@ public class RacketSizeBonus extends Bonus{
     private List<Racket> rackets;
     private Random random = new Random();
     private float effect;
+    private int index;
 
     public static RacketSizeBonus of(String form, boolean spawnOrNot, Session session) throws FormException {
         RacketSizeBonus racketSizeBonus = new RacketSizeBonus(session);
@@ -48,10 +49,29 @@ public class RacketSizeBonus extends Bonus{
 
     private void replaceRacket(Racket racket, int index) {
         final int newSize = (int)(racket.getGlobalSize() + this.effect);
+        this.index = index;
         Vector3f posRacket = racket.getGeometry().getWorldTranslation();
         try {
             Racket newRacket = Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false, newSize);
             this.rackets.add(index, newRacket);
+            newRacket.spawnObject(posRacket);
+            racket.getBulletAppState().getPhysicsSpace().remove(racket.getRigidBodyControl());
+            racket.getNode().detachChild(racket.getGeometry());
+            this.rackets.remove(racket);
+        } catch (FormException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeEffect() {
+        Racket racket = this.rackets.get(this.index);
+        Vector3f posRacket = racket.getGeometry().getWorldTranslation();
+        try {
+            Racket newRacket = Racket.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false);
+            if (index == 0) Racket.firstPlayer = true;
+            else Racket.firstPlayer = false;
+            this.rackets.add(this.index, newRacket);
             newRacket.spawnObject(posRacket);
             racket.getBulletAppState().getPhysicsSpace().remove(racket.getRigidBodyControl());
             racket.getNode().detachChild(racket.getGeometry());

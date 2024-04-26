@@ -93,4 +93,6 @@ public abstract class Bonus extends PhysicalObject {
     }
 
     public abstract void makeEffect(String whichPlayer);
+
+    public abstract void removeEffect();
 }
