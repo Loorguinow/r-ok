@@ -3,17 +3,6 @@
 If you want to see the readme in its english version, please scroll down
 until you see the english part as follows :
 
-================================================================================
-									English
-================================================================================
-
-## English
-
-
-================================================================================
-									Français
-================================================================================
-
 ## Français
 
 Ce projet a été fait dans le cadre de nos études au sein du master DID de l'université de Toulon. Nous devions faire en un mois un jeu de air hockey en respectant au maximum un cahier des charges donné en aval, en utilisant le moteur de jeu Jmonkey de Java.
@@ -23,12 +12,6 @@ Concernant notre organisation du développement, nous étions une petite équipe
 Pour les curieuses et curieux voulant analyser notre travail, nous avons décidé d'utiliser un workflow de type git flow.
 Notre programmation est en anglais, excepté les commentaires expliquant le fonctionnement de méthodes et autres.
 Quant à nos commits de git, nous faisions de même concernant les commentaires, ceux-ci étaient en français (sauf quelques fois où nous nous trompions :d)
-
-
-
-================================================================================
-									English
-================================================================================
 
 ## English
 
