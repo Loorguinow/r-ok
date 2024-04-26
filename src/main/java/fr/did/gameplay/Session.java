@@ -87,8 +87,6 @@ public class Session {
             createMiddleWall();
 
             this.bonuses = new ArrayList<>();
-            int j;
-            for (j=0;j<5;j++) this.bonuses.add(RacketSizeBonus.of(StaticObjectForm.CUBE, true, this));
         } catch (FormException e) {
             log.error("Objet d'une forme inconnue", e);
         }
