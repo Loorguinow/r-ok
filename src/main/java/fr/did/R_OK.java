@@ -11,6 +11,7 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import fr.did.gameplay.GameListener;
 import fr.did.gameplay.RacketActionListener;
 import fr.did.gameplay.Score;
 import fr.did.gameplay.Session;
@@ -20,8 +21,8 @@ import fr.did.object.bonus.Bonus;
 
 public class R_OK extends SimpleApplication {
     private RacketActionListener actionListener;
-
     private  RacketActionListener actionListener2;
+    private GameListener gameListener;
     private Session game;
     private float speed = 1;
     public static void main(String[] args) {
@@ -80,7 +81,9 @@ public class R_OK extends SimpleApplication {
                             game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
                             game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
-
+                            game.maybeMultiplePucks();
+                            game.removeBonuses();
+                            game.maybeBonuses();
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
                             p.getNode().detachChild(p.getGeometry());
@@ -109,7 +112,9 @@ public class R_OK extends SimpleApplication {
                             game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
                             game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
-
+                            game.maybeMultiplePucks();
+                            game.removeBonuses();
+                            game.maybeBonuses();
 
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
@@ -154,6 +159,10 @@ public class R_OK extends SimpleApplication {
         bulletAppState.getPhysicsSpace().addCollisionListener(puckGoal);
         bulletAppState.getPhysicsSpace().addCollisionListener(racketBonus);
 
+        this.inputManager.addMapping("RestartRound", new KeyTrigger(KeyInput.KEY_P));
+        this.gameListener = new GameListener(this.game);
+        this.inputManager.addListener(this.gameListener, "RestartRound");
+
         // Ajouter les touches avec les actions correspondantes
         this.inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_Z));
         this.inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
@@ -181,14 +190,14 @@ public class R_OK extends SimpleApplication {
         super.simpleUpdate(tpf);
 
         if (this.game.getScore().getRight() == Score.WINNER_SCORE){
-            System.out.println("ROUGE A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            System.out.println("ROUGE A GAGNÉ LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
             this.game.getScore().setRight(0);
             this.game.getScore().setLeft(0);
             this.game.getScore().updateNewScore();
         }
 
         else if (this.game.getScore().getLeft() == Score.WINNER_SCORE){
-            System.out.println("BLEU A GAGNE LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
+            System.out.println("BLEU A GAGNÉ LA PARTIE AVEC UN SCORE DE "+this.game.getScore().getScoreText().getText());
             this.game.getScore().setRight(0);
             this.game.getScore().setLeft(0);
             this.game.getScore().updateNewScore();
@@ -199,8 +208,9 @@ public class R_OK extends SimpleApplication {
 
         Float vitesse_max = 10f;
 
+        if (this.gameListener.roundRestartedOrNot) {
 
-
+        }
 
         //Mouvement Racket 1
         if (this.actionListener.getDirection_z_up() == 1){

@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Racket extends MobileObject{
 
-    private static boolean firstPlayer = true;
+    public static boolean firstPlayer = true;
 
     public static Racket of(String form, Node node, AssetManager assetManager, BulletAppState bulletAppState, boolean spawnOrNot) throws FormException {
         Racket racket = new Racket(node, assetManager, bulletAppState);
