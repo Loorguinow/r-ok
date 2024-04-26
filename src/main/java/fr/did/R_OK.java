@@ -81,13 +81,9 @@ public class R_OK extends SimpleApplication {
                             game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
                             game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
-<<<<<<< HEAD
                             game.maybeMultiplePucks();
                             game.removeBonuses();
                             game.maybeBonuses();
-=======
-                            //game.maybeMultiplePucks();
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());
                             p.getNode().detachChild(p.getGeometry());
@@ -116,14 +112,9 @@ public class R_OK extends SimpleApplication {
                             game.getRackets().get(1).getRigidBodyControl().setLinearVelocity(new Vector3f(0, 0, 0));
                             game.getRackets().get(1).getGeometry().setLocalTranslation(0.0f, 0.1f, ((Session.TABLE_LENGTH/4)*3));
                             game.getRackets().get(1).getGeometry().addControl(game.getRackets().get(1).getRigidBodyControl());
-<<<<<<< HEAD
                             game.maybeMultiplePucks();
                             game.removeBonuses();
                             game.maybeBonuses();
-=======
-                            //game.maybeMultiplePucks();
-
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
 
                         } else {
                             p.getBulletAppState().getPhysicsSpace().remove(p.getRigidBodyControl());

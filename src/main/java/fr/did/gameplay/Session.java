@@ -46,10 +46,7 @@ public class Session {
     private List<Puck> pucks;
     private List<Bonus> bonuses;
     private boolean multiplePucksOrNot = false;
-<<<<<<< HEAD
     private boolean multipleBonuses = false;
-=======
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
     private Random random = new Random();
 
     public static final float TABLE_LENGTH = 20.0f;
@@ -183,16 +180,11 @@ public class Session {
     }
 
     public void maybeMultiplePucks() {
-<<<<<<< HEAD
         this.multiplePucksOrNot = (this.random.nextInt(1,11) <= 3);
-=======
-        this.multiplePucksOrNot = (this.random.nextInt(1,11) <= 10);
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
         if (this.multiplePucksOrNot) {
             int twoOrThree = this.random.nextInt(2,3);
             if (twoOrThree == 2) {
                 try {
-<<<<<<< HEAD
                     Puck puck = this.pucks.get(0);
                     puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
                     puck.getNode().detachChild(puck.getGeometry());
@@ -204,16 +196,12 @@ public class Session {
                         p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
 
                     this.spawnPucks();
-=======
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
                 } catch (FormException e) {
                     e.printStackTrace();
                 }
             }
             else {
                 try {
-<<<<<<< HEAD
                     Puck puck = this.pucks.get(0);
                     puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
                     puck.getNode().detachChild(puck.getGeometry());
@@ -226,10 +214,6 @@ public class Session {
                         p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
 
                     this.spawnPucks();
-=======
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
                 } catch (FormException e) {
                     e.printStackTrace();
                 }
@@ -237,7 +221,6 @@ public class Session {
         this.multiplePucksOrNot = false;
         }
     }
-<<<<<<< HEAD
 
     public void maybeBonuses() {
         boolean bonusesOrNot = (this.random.nextInt(1,11) <= 3);
@@ -280,6 +263,4 @@ public class Session {
             System.out.println(this.bonuses);
         }
     }
-=======
->>>>>>> d2d1bb52183f4d4830ece09d3d7ac7e304823433
 }
