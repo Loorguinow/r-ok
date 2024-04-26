@@ -189,8 +189,15 @@ public class Session {
                     puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
                     puck.getNode().detachChild(puck.getGeometry());
                     this.getPucks().remove(0);
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    int i;
+                    boolean formCylinderOrNot;
+                    for (i=0;i<2;i++) {
+                        formCylinderOrNot = this.random.nextBoolean();
+                        if (formCylinderOrNot)
+                            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                        else
+                            this.pucks.add(Puck.of(MobileObjectForm.PRISM, this.node, this.assetManager, this.bulletAppState, false));
+                    }
                     for(Puck p :this.pucks){
                         p.getRigidBodyControl().addCollideWithGroup(3);
                         p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
@@ -206,9 +213,15 @@ public class Session {
                     puck.getBulletAppState().getPhysicsSpace().remove(puck.getRigidBodyControl());
                     puck.getNode().detachChild(puck.getGeometry());
                     this.getPucks().remove(0);
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
-                    this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                    int i;
+                    boolean formCylinderOrNot;
+                    for (i=0;i<3;i++) {
+                        formCylinderOrNot = this.random.nextBoolean();
+                        if (formCylinderOrNot)
+                            this.pucks.add(Puck.of(MobileObjectForm.CYLINDER, this.node, this.assetManager, this.bulletAppState, false));
+                        else
+                            this.pucks.add(Puck.of(MobileObjectForm.PRISM, this.node, this.assetManager, this.bulletAppState, false));
+                    }
                     for(Puck p :this.pucks){
                         p.getRigidBodyControl().addCollideWithGroup(3);
                         p.getRigidBodyControl().removeCollideWithGroup(wallCenterControl.getCollisionGroup());}
